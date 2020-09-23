@@ -1,0 +1,6 @@
+*.go~
+.idea/
+main
+bin/
+*~
+vendor/
