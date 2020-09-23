@@ -147,13 +147,13 @@ func main() {
 	log.Printf("Listen %s...", *addr)
 
 	ser := Register(context.TODO(), cli, ip, port)
+	defer ser.Stop()
 	go InitServiceChan(dc, ser, hub)
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	log.Println("Shutdown Server...")
-	ser.Stop()
 
 	ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
 	defer cancel()
